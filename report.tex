@@ -56,7 +56,32 @@ We will analyze this dataset using scanpy, scikit, pandas and the numpy librarie
 \section{Methods}
 % Detailed description of the data processing and analysis steps
 [Describe the data, preprocessing steps, algorithms used, and analysis workflow.]
-The data is AnnData formated and contains 13,199 cells × 31,535 genes. 
+The data is AnnData formated and contains 13,199 cells × 31,535 genes. using the scanpy
+library in python, we will preprocess the data.
+\subsection{Quality Control}
+We start by filtering out cells with less than 100 genes and genes that are
+expressed in less than 3 cells. 
+Then we use scanpy's built-in function srublet to filter out doublets.
+Next, we normalize the data to median counts per cell and log-transform the data using
+normalize_total and log1p functions in scanpy.
+Finally, we identify highly variable genes using the highly_variable_genes function in scanpy
+selecting the 2000 top genes.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/Highly_variable_genes.png}
+	% \caption{Summary of clustering results.}
+	\label{fig:clustering}
+\end{figure}
+For computational efficiency, we subset the data to only include these highly variable genes for downstream analysis.
+\subsection{Dimensionality Reduction and Clustering}
+We perform principal component analysis (PCA) on the normalized data using the
+pca function in scanpy, retaining the top 50 principal components.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/PCA_vatiance_ratio.png}
+	\caption{PCA variance ratio.}
+	\label{fig:clustering}
+\end{figure}
 
 \subsection{Code Availability}
 The code for this project is publicly available at: \\
